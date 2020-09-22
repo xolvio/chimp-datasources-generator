@@ -1,15 +1,16 @@
 {
   "name": "chimp-datasources-generator",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.0-development",
+  "description": "Helper that autogenerates DataSource-compatible APIs per controller for a given microservice, based on OpenAPI/Swagger specification",
   "bin": "lib/chimp-datasources-generator.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint \"lib/**/*.js\" --quiet"
+    "lint": "eslint \"lib/**/*.js\" --quiet",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xolvio/chimp-datasources-generator.git"
+    "url": "https://github.com/xolvio/chimp-datasources-generator.git"
   },
   "keywords": [],
   "author": "",

@@ -2,7 +2,7 @@
 
 ## What
 
-A helper that autogenerates DataSource compatible APIs per controller in a given microservice, based on OpenAPI/Swagger specification.
+Helper that autogenerates DataSource-compatible APIs per controller for a given microservice, based on OpenAPI/Swagger specification.
 
 ## Why
 
