@@ -5,7 +5,7 @@
   "bin": "lib/chimp-datasources-generator.js",
   "scripts": {
     "test": "jest",
-    "lint": "eslint \"lib/**/*.js\""
+    "lint": "eslint \"lib/**/*.js\" --quiet"
   },
   "repository": {
     "type": "git",
