@@ -104,8 +104,44 @@ export class {{classname}}Api extends RESTDataSource {
         const localVarPath = `{{{path}}}`{{#pathParams}}
         .replace(`{${"{{baseName}}"}}`, encodeURIComponent(String({{paramName}}))){{/pathParams}};
 
+        const localVarUrlObj = url.parse(localVarPath, true);
 
-    return this.{{httpMethod}}(localVarPath,{{#bodyParam}}{{paramName}}{{/bodyParam}})
+    const localVarQueryParameter = {}
+        {{#queryParams}}
+            {{#isListContainer}}
+                if ({{paramName}}) {
+                {{#isCollectionFormatMulti}}
+                    localVarQueryParameter['{{baseName}}'] = {{paramName}};
+                {{/isCollectionFormatMulti}}
+                {{^isCollectionFormatMulti}}
+                    localVarQueryParameter['{{baseName}}'] = {{paramName}}.join(COLLECTION_FORMATS["{{collectionFormat}}"]);
+                {{/isCollectionFormatMulti}}
+                }
+            {{/isListContainer}}
+            {{^isListContainer}}
+                if ({{paramName}} !== undefined) {
+                {{#isDateTime}}
+                    localVarQueryParameter['{{baseName}}'] = ({{paramName}} as any).toISOString();
+                {{/isDateTime}}
+                {{^isDateTime}}
+                    {{#isDate}}
+                        localVarQueryParameter['{{baseName}}'] = ({{paramName}} as any).toISOString();
+                    {{/isDate}}
+                    {{^isDate}}
+                        localVarQueryParameter['{{baseName}}'] = {{paramName}};
+                    {{/isDate}}
+                {{/isDateTime}}
+                }
+            {{/isListContainer}}
+
+        {{/queryParams}}
+
+        localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter);
+
+        delete localVarUrlObj.search;
+
+
+    return this.{{httpMethod}}(url.format(localVarUrlObj),{{#bodyParam}}{{paramName}}{{/bodyParam}})
   }
     {{/operation}}
 }
