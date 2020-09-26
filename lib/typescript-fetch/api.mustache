@@ -99,51 +99,14 @@ export class {{classname}}Api extends RESTDataSource {
         super();
         this.baseURL = baseUrl;
     }
+    paramCreator = {{classname}}FetchParamCreator()
     {{#operation}}
-        {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Response{{/returnType}}> {
+    {{nickname}}({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}, {{/allParams}}): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}Response{{/returnType}}> {
+        const args = this.paramCreator.{{nickname}}({{#allParams}}{{paramName}}, {{/allParams}})
 
-        const localVarPath = `{{{path}}}`{{#pathParams}}
-        .replace(`{${"{{baseName}}"}}`, encodeURIComponent(String({{paramName}}))){{/pathParams}};
-
-        const localVarUrlObj = url.parse(localVarPath, true);
-
-    const localVarQueryParameter = {}
-        {{#queryParams}}
-            {{#isListContainer}}
-                if ({{paramName}}) {
-                {{#isCollectionFormatMulti}}
-                    localVarQueryParameter['{{baseName}}'] = {{paramName}};
-                {{/isCollectionFormatMulti}}
-                {{^isCollectionFormatMulti}}
-                    localVarQueryParameter['{{baseName}}'] = {{paramName}}.join(COLLECTION_FORMATS["{{collectionFormat}}"]);
-                {{/isCollectionFormatMulti}}
-                }
-            {{/isListContainer}}
-            {{^isListContainer}}
-                if ({{paramName}} !== undefined) {
-                {{#isDateTime}}
-                    localVarQueryParameter['{{baseName}}'] = ({{paramName}} as any).toISOString();
-                {{/isDateTime}}
-                {{^isDateTime}}
-                    {{#isDate}}
-                        localVarQueryParameter['{{baseName}}'] = ({{paramName}} as any).toISOString();
-                    {{/isDate}}
-                    {{^isDate}}
-                        localVarQueryParameter['{{baseName}}'] = {{paramName}};
-                    {{/isDate}}
-                {{/isDateTime}}
-                }
-            {{/isListContainer}}
-
-        {{/queryParams}}
-
-        localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter);
-
-        delete localVarUrlObj.search;
-
-
-    return this.{{httpMethod}}(url.format(localVarUrlObj),{{#bodyParam}}{{paramName}}{{/bodyParam}})
-  }
+        // @ts-ignore
+        return this.fetch(Object.assign(args.options, { path: args.url }))
+    }
     {{/operation}}
 }
 
