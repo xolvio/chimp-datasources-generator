@@ -4,6 +4,8 @@
 
 Helper that autogenerates DataSource-compatible APIs per controller for a given microservice, based on OpenAPI/Swagger specification.
 
+You can see a real-life usage (article with a video) here: [https://www.xolv.io/blog/generate-your-apollo-datasources-2/](https://www.xolv.io/blog/generate-your-apollo-datasources-2/).
+
 ## Why
 
 It's error-prone, slow and boring to create all those connectors manually. Most people either skip typing them, or type them manually (which is again error-prone, slow and boring). Having them generated makes the Developer Experience much nicer and the whole system significantly more maintainable.
