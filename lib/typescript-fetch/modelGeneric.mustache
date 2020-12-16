@@ -26,16 +26,18 @@ export namespace {{classname}} {
 {{#vars}}
     {{#isEnum}}
     /**
-     * @export
-     * @enum {string}
-     */
-    export enum {{enumName}} {
+    * {{{description}}}
+    * @export
+    */
+    export const {{enumName}} = {
     {{#allowableValues}}
         {{#enumVars}}
-        {{{name}}} = <any> {{{value}}}{{^@last}},{{/@last}}
+            {{{name}}}: {{{value}}}{{^@last}},{{/@last}}
         {{/enumVars}}
     {{/allowableValues}}
-    }
+    } as const
+
+    export type {{enumName}} = typeof {{enumName}}[keyof typeof {{enumName}}]
     {{/isEnum}}
 {{/vars}}
 }{{/hasEnums}}

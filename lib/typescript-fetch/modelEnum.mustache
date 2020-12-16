@@ -3,10 +3,12 @@
  * @export
  * @enum {string}
  */
-export enum {{classname}} {
+export const {{classname}} = {
 {{#allowableValues}}
 {{#enumVars}}
-    {{{name}}} = <any> {{{value}}}{{^@last}},{{/@last}}
+    {{{name}}}:{{{value}}}{{^@last}},{{/@last}}
 {{/enumVars}}
 {{/allowableValues}}
-}
+} as const
+
+export type {{classname}} = typeof {{classname}}[keyof typeof {{classname}}]
